@@ -1,0 +1,172 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #222222;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 45px 0 25px;
+}
+
+.page-header {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 10px;
+  color: #333333;
+  font-size: 2rem;
+}
+
+.page-header p {
+  margin: 0;
+  color: #666666;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.card {
+  min-height: 285px;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+h2 {
+  margin: 0 0 35px;
+  color: #444444;
+  font-size: 1.35rem;
+}
+
+.clock-display,
+.stopwatch-display {
+  color: #1d4f75;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.clock-display {
+  margin: 45px 0 15px;
+  font-size: clamp(2.3rem, 6vw, 4rem);
+}
+
+.ampm {
+  margin-left: 8px;
+  color: #555555;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+.date-display,
+.status {
+  margin: 0;
+  color: #666666;
+}
+
+.stopwatch-display {
+  margin: 48px 0 15px;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+}
+
+.milliseconds {
+  color: #555555;
+  font-size: 0.55em;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+button {
+  padding: 10px 18px;
+  border: 1px solid #bbbbbb;
+  border-radius: 4px;
+  background-color: #eeeeee;
+  color: #222222;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+button:hover {
+  background-color: #dddddd;
+}
+
+button:focus-visible {
+  outline: 2px solid #1d4f75;
+  outline-offset: 2px;
+}
+
+.start-button {
+  border-color: #1d4f75;
+  background-color: #1d4f75;
+  color: #ffffff;
+}
+
+.start-button:hover {
+  background-color: #163d5b;
+}
+
+footer {
+  margin-top: 35px;
+  color: #777777;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding-top: 30px;
+  }
+
+  .tools {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 420px) {
+  .container {
+    width: 94%;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .card {
+    padding: 25px 15px;
+  }
+
+  .controls {
+    gap: 6px;
+  }
+
+  button {
+    flex: 1;
+    padding: 10px 8px;
+  }
+}

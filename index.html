@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock and Stopwatch</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <h1>Digital Clock and Stopwatch</h1>
+      <p>A simple time tool for everyday use.</p>
+    </header>
+
+    <section class="tools">
+      <article class="card">
+        <h2>Digital Clock</h2>
+        <div class="clock-display" aria-live="polite">
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+          <span id="ampm" class="ampm">AM</span>
+        </div>
+        <p id="date" class="date-display">Monday, January 1, 2024</p>
+      </article>
+
+      <article class="card">
+        <h2>Stopwatch</h2>
+        <div id="stopwatch-display" class="stopwatch-display" aria-live="polite">00:00:00<span class="milliseconds">.00</span></div>
+        <p id="stopwatch-status" class="status">Ready to start.</p>
+        <div class="controls">
+          <button id="start-button" class="start-button" type="button">Start</button>
+          <button id="stop-button" type="button">Stop</button>
+          <button id="reset-button" type="button">Reset</button>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <!-- <p>Made with HTML, CSS, and JavaScript.</p> -->
+    </footer>
+  </main>
+
+ <script src="script.js"></script>
+</body>
+</html>
