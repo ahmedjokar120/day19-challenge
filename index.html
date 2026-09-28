@@ -3,43 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Clock and Stopwatch</title>
+  <meta name="description" content="Event organizer dashboard for managing events, tickets, attendees, and check-ins.">
+  <title>Gather | Event Management Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="container">
-    <header class="page-header">
-      <h1>Digital Clock and Stopwatch</h1>
-      <p>A simple time tool for everyday use.</p>
-    </header>
+  <div class="app-layout">
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+    <aside id="sidebar" class="sidebar">
+      <a class="brand" href="#dashboard"><span class="brand-icon">G</span><span>gather<span class="brand-dot">.</span></span></a>
+      <p class="nav-label">WORKSPACE</p>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#dashboard"><span>▦</span>Dashboard</a>
+        <a class="nav-link" href="#events"><span>▣</span>Events</a>
+        <a class="nav-link" href="#attendees"><span>♙</span>Attendees</a>
+        <a class="nav-link" href="#create-event"><span>＋</span>Create Event</a>
+        <a class="nav-link" href="#analytics"><span>▤</span>Analytics</a>
+      </nav>
+      <p class="nav-label settings-label">PREFERENCES</p>
+      <nav class="side-nav" aria-label="Preferences">
+        <a class="nav-link" href="#settings"><span>⚙</span>Settings</a>
+      </nav>
+      <div class="sidebar-profile">
+        <div class="profile-avatar">AO</div>
+        <div><strong>Ahmed Organizer</strong><span>Event Organizer</span></div>
+        <button class="profile-more" aria-label="Profile options" type="button">•••</button>
+      </div>
+    </aside>
 
-    <section class="tools">
-      <article class="card">
-        <h2>Digital Clock</h2>
-        <div class="clock-display" aria-live="polite">
-          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
-          <span id="ampm" class="ampm">AM</span>
-        </div>
-        <p id="date" class="date-display">Monday, January 1, 2024</p>
-      </article>
+    <div class="main-area">
+      <header class="topbar">
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+        <div class="page-title"><span>Workspace</span><h1>Event Management Dashboard</h1></div>
+        <label class="global-search"><span aria-hidden="true">⌕</span><input id="global-search" type="search" placeholder="Search events or attendees..." aria-label="Search events or attendees"></label>
+        <button id="notification-button" class="notification-button" type="button" aria-label="Notifications, 3 new"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i></i></button>
+        <div class="top-profile"><div class="profile-avatar small">AO</div><div><strong>Ahmed Organizer</strong><span>Administrator</span></div><span class="chevron">⌄</span></div>
+      </header>
 
-      <article class="card">
-        <h2>Stopwatch</h2>
-        <div id="stopwatch-display" class="stopwatch-display" aria-live="polite">00:00:00<span class="milliseconds">.00</span></div>
-        <p id="stopwatch-status" class="status">Ready to start.</p>
-        <div class="controls">
-          <button id="start-button" class="start-button" type="button">Start</button>
-          <button id="stop-button" type="button">Stop</button>
-          <button id="reset-button" type="button">Reset</button>
+      <main id="dashboard" class="dashboard-content">
+        <div class="welcome-row">
+          <div><p id="today-label" class="eyebrow"></p><h2>Good morning, Ahmed <span>👋</span></h2><p class="welcome-subtitle">Here’s what’s happening with your events today.</p></div>
+          <a class="primary-button" href="#create-event"><span>＋</span> Create event</a>
         </div>
-      </article>
+
+        <section class="stats-grid" aria-label="Event statistics">
+          <article class="stat-card"><div class="stat-top"><span>Total Tickets Sold</span><span class="stat-icon purple">▤</span></div><strong id="tickets-sold-total">2,845</strong><p class="stat-change"><span>↗ 12.8%</span> <span>vs last month</span></p></article>
+          <article class="stat-card"><div class="stat-top"><span>Revenue Generated</span><span class="stat-icon blue">$</span></div><strong>$48,750</strong><p class="stat-change"><span>↗ 8.2%</span> <span>vs last month</span></p></article>
+          <article class="stat-card"><div class="stat-top"><span>Total Check-ins</span><span class="stat-icon orange">✓</span></div><strong id="checkin-total">1,920</strong><p class="stat-change"><span class="neutral-change">Across all events</span></p></article>
+          <article class="stat-card"><div class="stat-top"><span>Active Events</span><span class="stat-icon green">▣</span></div><strong id="active-event-total">12</strong><p class="stat-change"><span class="neutral-change">4 happening this week</span></p></article>
+        </section>
+
+        <section id="events" class="content-section">
+          <div class="section-heading">
+            <div><h2>Upcoming Events</h2><p>Keep track of your next events and ticket sales.</p></div>
+            <div class="heading-actions"><label class="compact-select"><span class="sr-only">Filter events</span><select id="event-filter"><option value="all">All event types</option><option>Music</option><option>Technology</option><option>Workshop</option><option>Business</option><option>Networking</option><option>Marketing</option></select></label><a class="text-link" href="#create-event">View all events <span>→</span></a></div>
+          </div>
+          <div id="event-grid" class="event-grid"></div>
+        </section>
+
+        <section id="attendees" class="content-section attendee-section">
+          <div class="section-heading">
+            <div><h2>Attendee Management</h2><p>Search registrations and manage event check-ins.</p></div>
+          </div>
+          <div class="filter-bar">
+            <label class="attendee-search"><span>⌕</span><input id="attendee-search" type="search" placeholder="Search by attendee name..." aria-label="Search attendees by name"></label>
+            <label><span class="sr-only">Filter by event</span><select id="attendee-event-filter"><option value="all">All events</option></select></label>
+            <label><span class="sr-only">Filter by ticket type</span><select id="ticket-filter"><option value="all">All ticket types</option><option>VIP</option><option>Regular</option><option>Early Bird</option></select></label>
+            <label><span class="sr-only">Filter by check-in status</span><select id="status-filter"><option value="all">All statuses</option><option>Checked In</option><option>Pending</option></select></label>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Attendee</th><th>Event</th><th>Ticket</th><th>Price</th><th>Registered</th><th>Check-in status</th><th>Action</th></tr></thead>
+              <tbody id="attendee-table-body"></tbody>
+            </table>
+          </div>
+          <p id="attendee-count" class="table-note"></p>
+        </section>
+
+        <section id="analytics" class="content-section analytics-row">
+          <div class="analytics-card"><div class="section-heading"><div><h2>Ticket sales overview</h2><p>Sales progress for your upcoming events.</p></div><span class="small-tag">This month</span></div><div id="sales-overview" class="sales-overview"></div></div>
+          <div class="analytics-card quick-card"><div class="section-heading"><div><h2>Quick summary</h2><p>Your event activity at a glance.</p></div></div><div class="summary-line"><span>Check-in rate</span><strong id="checkin-rate">67%</strong></div><div class="summary-track"><span id="checkin-rate-bar"></span></div><div class="summary-line"><span>Upcoming in next 30 days</span><strong id="upcoming-count">6 events</strong></div><div class="summary-line"><span>Attendees registered</span><strong id="registered-count">10</strong></div></div>
+        </section>
+
+        <section id="create-event" class="content-section create-section">
+          <div class="section-heading"><div><h2>Create New Event</h2><p>Set up an event in a few simple steps.</p></div></div>
+          <div class="form-card">
+            <div class="stepper" aria-label="Event form steps">
+              <div class="step active" data-step-indicator="1"><span>1</span><p>Event information</p></div><i></i>
+              <div class="step" data-step-indicator="2"><span>2</span><p>Date &amp; location</p></div><i></i>
+              <div class="step" data-step-indicator="3"><span>3</span><p>Tickets</p></div><i></i>
+              <div class="step" data-step-indicator="4"><span>4</span><p>Cover photo</p></div>
+            </div>
+            <form id="event-form" novalidate>
+              <div class="form-step active" data-step="1">
+                <h3>Event information</h3><p class="form-hint">Start with the basics about your event.</p>
+                <div class="form-grid">
+                  <label class="field full-field">Event name <input id="form-event-name" name="name" placeholder="e.g. Future Music Festival" required><small class="field-error"></small></label>
+                  <label class="field">Event type <select id="form-event-type" name="type" required><option value="">Select a type</option><option>Music</option><option>Technology</option><option>Workshop</option><option>Business</option><option>Networking</option><option>Marketing</option></select><small class="field-error"></small></label>
+                  <label class="field full-field">Description <textarea id="form-description" name="description" rows="3" placeholder="What will attendees experience?" required></textarea><small class="field-error"></small></label>
+                </div>
+              </div>
+              <div class="form-step" data-step="2">
+                <h3>Date &amp; location</h3><p class="form-hint">When and where will your event take place?</p>
+                <div class="form-grid">
+                  <label class="field">Event date <input id="form-date" name="date" type="date" required><small class="field-error"></small></label>
+                  <label class="field">Start time <input name="startTime" type="time" required><small class="field-error"></small></label>
+                  <label class="field">End time <input name="endTime" type="time" required><small class="field-error"></small></label>
+                  <label class="field">Venue <input name="venue" placeholder="e.g. The Glasshouse" required><small class="field-error"></small></label>
+                  <label class="field">City <input name="city" placeholder="e.g. Austin, TX" required><small class="field-error"></small></label>
+                </div>
+              </div>
+              <div class="form-step" data-step="3">
+                <h3>Tickets</h3><p class="form-hint">Choose your ticket type, price, and available quantity.</p>
+                <div class="form-grid">
+                  <label class="field">Ticket type <select name="ticketType" required><option value="">Select ticket type</option><option>VIP</option><option>Regular</option><option>Early Bird</option></select><small class="field-error"></small></label>
+                  <label class="field">Ticket price (USD) <input name="price" type="number" min="0" step="0.01" placeholder="49.00" required><small class="field-error"></small></label>
+                  <label class="field">Total tickets <input name="totalTickets" type="number" min="1" step="1" placeholder="250" required><small class="field-error"></small></label>
+                </div>
+              </div>
+              <div class="form-step" data-step="4">
+                <h3>Cover photo</h3><p class="form-hint">Add an image to help your event stand out. This step is optional.</p>
+                <label class="upload-area" for="cover-photo"><span class="upload-icon">↑</span><strong>Choose a cover image</strong><span>PNG or JPG image file</span><input id="cover-photo" name="coverPhoto" type="file" accept="image/png,image/jpeg,image/webp"></label>
+                <img id="image-preview" class="image-preview" alt="Selected event cover preview">
+                <p id="form-message" class="form-message" role="status"></p>
+              </div>
+              <div id="form-general-error" class="form-general-error" role="alert"></div>
+              <div class="form-actions"><button id="previous-step" class="secondary-button" type="button">Previous</button><span id="step-count">Step 1 of 4</span><button id="next-step" class="primary-button" type="button">Next step <span>→</span></button><button id="submit-event" class="primary-button" type="submit" hidden>Create event</button></div>
+            </form>
+          </div>
+        </section>
+
+        <footer id="settings" class="dashboard-footer">
+          <div class="system-status"><span class="online-dot"></span>All Systems Operational</div>
+          <span>Last updated <time id="last-updated"></time></span>
+          <button id="export-button" class="secondary-button footer-export" type="button"><span>⇩</span> Export attendees</button>
+          <button id="theme-toggle" class="theme-toggle" type="button"><span id="theme-icon">☾</span> <span id="theme-label">Dark mode</span></button>
+          <span class="copyright">© 2026 Gather Events</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <div id="event-modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close-modal></div>
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" type="button" aria-label="Close event details">×</button>
+      <div id="modal-content"></div>
     </section>
-
-    <footer>
-      <!-- <p>Made with HTML, CSS, and JavaScript.</p> -->
-    </footer>
-  </main>
-
- <script src="script.js"></script>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
 </body>
 </html>
